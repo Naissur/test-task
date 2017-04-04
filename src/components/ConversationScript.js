@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { pure, compose, setPropTypes, withState, withHandlers } from 'recompose';
 
+import { last, dropLast } from 'ramda';
+
 import ConversationScriptStart from './ConversationScriptStart';
 import ScriptStep from './ScriptStep';
 
@@ -12,19 +14,27 @@ const ConversationScript = compose(
   withState('stepsHistory', 'setStepsHistory', []),
   withHandlers({
     replyClicked: ({ setStep, stepsHistory, setStepsHistory, scriptData }) => (stepId, replyId) => {
-      console.log('replyClicked', { stepId, replyId });
       const newStep = scriptData[stepId].replies[replyId].to;
-
-      console.log('replyClicked', { newStep });
 
       setStep(newStep);
       setStepsHistory([...stepsHistory, { stepId, replyId }]);
+    },
+    stepBack: ({ setStep, stepsHistory, setStepsHistory, scriptData }) => () => {
+      if (stepsHistory.length === 0) {
+        return; //do nothing
+      }
+
+      const prevStep = last(stepsHistory).stepId;
+
+      setStep(prevStep);
+      setStepsHistory(dropLast(stepsHistory));
     }
   }),
   pure
 )(({
   stopped, onStart, started, setStarted, scriptData, setStep, step,
   replyClicked,
+  stepBack,
   stepsHistory,
   setStepsHistory
 }) => {
@@ -46,6 +56,9 @@ const ConversationScript = compose(
           onReplyClicked={(newId, oldId) => replyClicked(newId, oldId)}
           stepId={step}
         />
+        {(stepsHistory.length >= 1) && (
+          <button onClick={stepBack}>Назад</button>
+        )}
       </div>
     );
   }
