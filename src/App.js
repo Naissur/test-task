@@ -9,18 +9,18 @@ export default class App extends Component {
         scriptData={{
           '0': {
             line: 'Добрый день!',
-            replies: [
-              { id: '0', caption: 'Привет', to: '1'},
-              { id: '1', caption: 'Пока', to: '2' }
-            ]
+            replies: {
+              '0': { id: '0', line: 'Привет', to: '1'},
+              '1': { id: '1', line: 'Пока', to: '2' }
+            }
           },
           '1': {
             line: 'Чем я могу помочь?',
-            replies: []
+            replies: {}
           },
           '2': {
             line: 'Всего доброго, bitch!',
-            replies: []
+            replies: {}
           }
         }}
       />

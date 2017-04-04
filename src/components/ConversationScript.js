@@ -11,10 +11,14 @@ const ConversationScript = compose(
   withState('step', 'setStep', '0'), // TODO GENERALIZE
   withState('stepsHistory', 'setStepsHistory', []),
   withHandlers({
-    replyClicked: ({ setStep, stepsHistory, setStepsHistory }) => (oldId, newId) => {
-      console.log('replyClicked', newId);
-      setStep(newId);
-      setStepsHistory([...stepsHistory, oldId]);
+    replyClicked: ({ setStep, stepsHistory, setStepsHistory, scriptData }) => (stepId, replyId) => {
+      console.log('replyClicked', { stepId, replyId });
+      const newStep = scriptData[stepId].replies[replyId].to;
+
+      console.log('replyClicked', { newStep });
+
+      setStep(newStep);
+      setStepsHistory([...stepsHistory, { stepId, replyId }]);
     }
   }),
   pure
@@ -29,7 +33,13 @@ const ConversationScript = compose(
     return (
       <div>
         {stepsHistory.map(
-          stepId => (<div>Мы: {scriptData[stepId].line}</div>)
+          ({ stepId, replyId }) => (
+            <div>
+              Мы: {scriptData[stepId].line}
+              <br />
+              Клиент: {scriptData[stepId].replies[replyId].line}
+            </div>
+          )
         )}
         <ScriptStep
           scriptData={scriptData}

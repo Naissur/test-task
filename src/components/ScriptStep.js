@@ -12,19 +12,27 @@ const ScriptStep = compose(
   const data = scriptData[stepId];
   const { replies } = data;
 
+  if (Object.values(replies).length === 0) {
+    return (
+      <div>
+        Мы: "{data.line}"
+        <br/>
+        - Конец -
+      </div>
+    );
+  }
+
   return (
     <div>
-      <br />
       Мы: "{data.line}"
 
       <br/>
-      <br/>
 
-      Клиент: {replies.map(reply => (
+      Клиент: {Object.values(replies).map(reply => (
         <button
-          onClick={() => onReplyClicked(stepId, reply.to)}
+          onClick={() => onReplyClicked(stepId, reply.id)}
         >
-          {reply.caption}
+          {reply.line}
         </button>
       ))}
     </div>
