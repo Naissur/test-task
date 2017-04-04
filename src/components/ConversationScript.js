@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { pure, compose, setPropTypes, withState, withHandlers } from 'recompose';
 
-import { last, dropLast } from 'ramda';
+import { last, dropLast, head } from 'ramda';
 
 import ConversationScriptStart from './ConversationScriptStart';
 import ScriptStep from './ScriptStep';
@@ -28,6 +28,16 @@ const ConversationScript = compose(
 
       setStep(prevStep);
       setStepsHistory(dropLast(stepsHistory));
+    },
+    stepToBeginning: ({ setStep, stepsHistory, setStepsHistory, scriptData }) => () => {
+      if (stepsHistory.length === 0) {
+        return; //do nothing
+      }
+
+      const initStep = head(stepsHistory).stepId;
+
+      setStep(initStep);
+      setStepsHistory([]);
     }
   }),
   pure
@@ -35,6 +45,7 @@ const ConversationScript = compose(
   stopped, onStart, started, setStarted, scriptData, setStep, step,
   replyClicked,
   stepBack,
+  stepToBeginning,
   stepsHistory,
   setStepsHistory
 }) => {
@@ -58,6 +69,9 @@ const ConversationScript = compose(
         />
         {(stepsHistory.length >= 1) && (
           <button onClick={stepBack}>Назад</button>
+        )}
+        {(stepsHistory.length >= 1) && (
+          <button onClick={stepToBeginning}>В начало</button>
         )}
       </div>
     );
