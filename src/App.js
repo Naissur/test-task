@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
+import ConversationScript from './components/ConversationScript';
+
 export default class App extends Component {
   render() {
     return (
-      <h1>Hey there!</h1>
+      <ConversationScript
+        script={{}}
+      />
     );
   }
 }

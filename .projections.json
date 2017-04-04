@@ -1,0 +1,139 @@
+
+{
+  "src/blog-posts/*.md": {
+    "type": "post",
+    "template": [
+      "## {}",
+      "Mon, 20 Mar 2017"
+    ]
+  },
+  "docs/*.md": {
+    "type": "docs"
+  },
+  "FeaturesList.md": {
+    "type": "features"
+  },
+  "src/components/*.js": {
+    "type": "component",
+    "alternate": "src/components/{}.scss",
+    "template": [
+      "import React, {open} PropTypes {close} from 'react';",
+      "import {open} pure, compose, setPropTypes {close} from 'recompose';",
+      "",
+      "const {} = compose(",
+      "  setPropTypes({open}",
+      "  {close}),",
+      "  pure",
+      ")(({open} {close}) => {open}",
+      "  return (",
+      "    <div>",
+      "    </div>",
+      "  );",
+      "{close});",
+      "",
+      "export default {};"
+    ]
+  },
+  "src/components/*.scss": {
+    "type": "component_style",
+    "alternate": "src/components/{}.js",
+    "template": [
+      ".root {open}",
+      "{close}"
+    ]
+  },
+
+  "src/containers/*.js": {
+    "type": "container",
+    "alternate": "src/containers/{}.scss",
+    "template": [
+      "import React, {open} PropTypes {close} from 'react';",
+      "import {open} pure, compose, setDisplayName, setPropTypes {close} from 'recompose';",
+      "import {open} bindActionCreators {close} from 'redux';",
+      "import {open} connect {close} from 'react-redux';",
+      "",
+      "",
+      "const P = s => ({open}",
+      "{close});",
+      "",
+      "const A = d => bindActionCreators({open}",
+      "{close}, d);",
+      "",
+      "const {} = compose(",
+      "  setDisplayName('{}'),",
+      "  setPropTypes({open}",
+      "  {close}),",
+      "  connect(P, A),",
+      "  pure,",
+      ")(({open}",
+      "{close}) => {open}",
+      "  return (",
+      "    <div>",
+      "    </div>",
+      "  );",
+      "{close})",
+      "",
+      "export default {};"
+    ]
+  },
+  "src/containers/*.scss": {
+    "type": "container_style",
+    "alternate": "src/containers/{}.js",
+    "template": [
+      ".root {open}",
+      "{close}"
+    ]
+  },
+  "src/reducers/*.js": {
+    "type": "reducer",
+    "template": [
+      "import {open}",
+      "  SHOW_MODAL,",
+      "  HIDE_MODAL,",
+      "{close} from '../constants';",
+      "",
+      "const initialState = {open}",
+      "{close};",
+      "",
+      "export default (state = initialState, action) => {open}",
+      "  switch (action.type) {open}",
+      "  default: return state;",
+      "  {close}",
+      "{close};"
+    ]
+  },
+  "src/sagas/*.js" : {
+    "type": "saga",
+    "template" : [
+      "import {open} takeLatest, select, put, fork {close} from 'redux-saga/effects';",
+      "import {open} delay {close} from 'redux-saga';",
+      "import {open} SET_{uppercase} {close} from '../constants';",
+      "",
+      "import {open} get{camelcase} {close} from '../selectors/{}';",
+      "",
+      "",
+      "export default function* watch{camelcase}() {open}",
+      "  yield fork(watchUpdate{camelcase});",
+      "{close}",
+      "",
+      "function* watchUpdate{camelcase}() {open}",
+      "  yield takeLatest(SET_{uppercase}, update{camelcase}Saga);",
+      "{close}",
+      "",
+      "function* update{camelcase}Saga({open} {} {close}) {open}",
+      "  save{camelcase}({} );",
+      "{close}",
+      ""
+    ]
+  },
+  "src/selectors/*.js" : {
+    "type": "selector",
+    "template" : [
+      "import {open} createSelector as s {close} from 'reselect';",
+      "import {open} prop {close} from 'ramda';",
+      "",
+      "export const get{camelcase} = prop('{}'),",
+      ""
+    ]
+  }
+}
