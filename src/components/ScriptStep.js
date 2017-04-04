@@ -4,23 +4,28 @@ import { pure, compose, setPropTypes } from 'recompose';
 const ScriptStep = compose(
   setPropTypes({
     scriptData: PropTypes.object.isRequired,
-    stepId: PropTypes.string.isRequired
+    stepId: PropTypes.string.isRequired,
+    onReplyClicked: PropTypes.func.isRequired
   }),
   pure
-)(({ stepId, scriptData }) => {
+)(({ stepId, scriptData, onReplyClicked }) => {
   const data = scriptData[stepId];
   const { replies } = data;
 
   return (
     <div>
       <br />
-      Фраза: "{data.line}"
+      Мы: "{data.line}"
 
       <br/>
       <br/>
 
-      {replies.map(reply => (
-        <button>{reply.caption}</button>
+      Клиент: {replies.map(reply => (
+        <button
+          onClick={() => onReplyClicked(stepId, reply.to)}
+        >
+          {reply.caption}
+        </button>
       ))}
     </div>
   );
