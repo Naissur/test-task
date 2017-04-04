@@ -8,7 +8,12 @@ export default class App extends Component {
       <ConversationScript
         scriptData={{
           '0': {
-            line: 'Hey there!'
+            line: 'Hey there!',
+            replies: [
+              { id: '0', caption: 'Hey' },
+              { id: '1', caption: 'Hey there' },
+              { id: '2', caption: 'Hey there, wazzup?' },
+            ]
           }
         }}
       />

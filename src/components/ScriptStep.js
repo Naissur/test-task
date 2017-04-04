@@ -9,14 +9,19 @@ const ScriptStep = compose(
   pure
 )(({ stepId, scriptData }) => {
   const data = scriptData[stepId];
+  const { replies } = data;
 
   return (
     <div>
-      Script Step
       <br />
-      <br />
+      Фраза: "{data.line}"
 
-      Line: "{data.line}"
+      <br/>
+      <br/>
+
+      {replies.map(reply => (
+        <button>{reply.caption}</button>
+      ))}
     </div>
   );
 });
