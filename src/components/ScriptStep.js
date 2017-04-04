@@ -15,7 +15,7 @@ const ScriptStep = compose(
   if (Object.values(replies).length === 0) {
     return (
       <div>
-        Мы: "{data.line}"
+        Мы: {data.line}
         <br/>
         - Конец -
       </div>
@@ -24,7 +24,7 @@ const ScriptStep = compose(
 
   return (
     <div>
-      Мы: "{data.line}"
+      Мы: {data.line}
 
       <br/>
 

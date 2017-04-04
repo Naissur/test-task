@@ -5,14 +5,20 @@ import { last, dropLast, head } from 'ramda';
 
 import ConversationScriptStart from './ConversationScriptStart';
 import ScriptStep from './ScriptStep';
+import Timer from './Timer';
 
 const ConversationScript = compose(
   setPropTypes({
   }),
   withState('started', 'setStarted', false),
+  withState('timeStarted', 'setTimeStarted', 0),
   withState('step', 'setStep', '0'), // TODO GENERALIZE
   withState('stepsHistory', 'setStepsHistory', []),
   withHandlers({
+    setStarted: ({ setStarted, setTimeStarted }) => val => {
+      setStarted(val);
+      setTimeStarted((new Date()).getTime());
+    },
     replyClicked: ({ setStep, stepsHistory, setStepsHistory, scriptData }) => (stepId, replyId) => {
       const newStep = scriptData[stepId].replies[replyId].to;
 
@@ -47,12 +53,16 @@ const ConversationScript = compose(
   stepBack,
   stepToBeginning,
   stepsHistory,
-  setStepsHistory
+  setStepsHistory,
+  timeStarted,
 }) => {
 
   if (started) {
     return (
       <div>
+        <Timer since={timeStarted} />
+        <br />
+
         {stepsHistory.map(
           ({ stepId, replyId }) => (
             <div>
