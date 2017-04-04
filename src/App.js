@@ -6,7 +6,11 @@ export default class App extends Component {
   render() {
     return (
       <ConversationScript
-        script={{}}
+        scriptData={{
+          '0': {
+            line: 'Hey there!'
+          }
+        }}
       />
     );
   }
