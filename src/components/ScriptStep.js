@@ -24,18 +24,23 @@ const ScriptStep = compose(
 
   return (
     <div>
-      Мы: {data.line}
+      <b>Мы:</b> {data.line}
 
       <br/>
 
-      Клиент: {Object.values(replies).map(reply => (
-        <button
-          key={reply.id}
-          onClick={() => onReplyClicked(stepId, reply.id)}
-        >
-          {reply.line}
-        </button>
+    <b>Клиент:</b>
+    <br />
+
+    {Object.values(replies).map(reply => (
+      <button
+        key={reply.id}
+        style={{ display: 'block' }}
+        onClick={() => onReplyClicked(stepId, reply.id)}
+      >
+        {reply.line}
+      </button>
       ))}
+      <br />
     </div>
   );
 });
