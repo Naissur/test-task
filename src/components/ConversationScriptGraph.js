@@ -29,10 +29,11 @@ const ConversationScriptGraph = compose(
   withState('html', 'setHTML', `<div style="color: grey">-not rendered yet-</div>`),
   withHandlers({
     renderHTML: ({ scriptData, setHTML, html }) => () => {
-      if (document.querySelector('.node#A')) {
-        document.querySelector('.node#A').onclick = () => {};
-      }
+      // remove prev event listeners
+      const allNodes = document.querySelectorAll('.mermaid .node');
+      allNodes.forEach(node => { node.onclick = () => {}; })
 
+      // build graph description
       const stepsKeys = keys(dissoc('firstStep', scriptData));
 
       const graphDef = `
@@ -48,12 +49,12 @@ const ConversationScriptGraph = compose(
 
       // map event handlers
 
-      if (document.querySelector('.node#A')) {
-        document.querySelector('.node#A').style.cursor = 'pointer';
-        document.querySelector('.node#A').onclick = () => {
-          console.log('yay, bitch!');
+      allNodes.forEach(node => {
+        node.style.cursor = 'pointer';
+        node.onclick = () => {
+          console.log('yay!', node);
         };
-      }
+      })
 
     }
   }),
