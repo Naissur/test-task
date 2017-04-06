@@ -22,7 +22,7 @@ export default class App extends Component {
             }
           },
           '2': {
-            line: 'Всего доброго, bitch!',
+            line: 'Всего доброго!',
             replies: {}
           },
           '3': {

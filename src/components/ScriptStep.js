@@ -30,6 +30,7 @@ const ScriptStep = compose(
 
       Клиент: {Object.values(replies).map(reply => (
         <button
+          key={reply.id}
           onClick={() => onReplyClicked(stepId, reply.id)}
         >
           {reply.line}
