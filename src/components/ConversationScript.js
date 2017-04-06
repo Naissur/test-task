@@ -9,11 +9,11 @@ import Timer from './Timer';
 
 const ConversationScript = compose(
   setPropTypes({
+    started: PropTypes.any.isRequired,
+    timeStarted: PropTypes.any.isRequired,
+    stepsHistory: PropTypes.any.isRequired,
+    setStepsHistory: PropTypes.any.isRequired
   }),
-  withState('started', 'setStarted', false),
-  withState('timeStarted', 'setTimeStarted', 0),
-  withState('step', 'setStep', ({scriptData}) => scriptData.firstStep || '0'),
-  withState('stepsHistory', 'setStepsHistory', []),
   withHandlers({
     setStarted: ({ setStarted, setTimeStarted }) => val => {
       setStarted(val);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { pure, withState, compose } from 'recompose';
 
 import ConversationScript from './components/ConversationScript';
 import ConversationScriptGraph from './components/ConversationScriptGraph';
@@ -30,24 +31,48 @@ const SCRIPT_DATA = {
   }
 };
 
-export default class App extends Component {
-  render() {
-    return (
+export default compose(
+  withState('started', 'setStarted', false),
+  withState('timeStarted', 'setTimeStarted', 0),
+  withState('step', 'setStep', SCRIPT_DATA.firstStep),
+  withState('stepsHistory', 'setStepsHistory', []),
+  pure,
+)(({
+  started, setStarted,
+  timeStarted, setTimeStarted,
+  step, setStep,
+  stepsHistory,
+  setStepsHistory
+}) => (
+  <div>
+    <h3>RBR Демо-скрипт </h3>
+    <div style={{ display: 'flex' }}>
       <div>
-        <h3>RBR Демо-скрипт </h3>
-        <div style={{ display: 'flex' }}>
-          <div>
-            <ConversationScript
-              scriptData={SCRIPT_DATA}
-            />
-          </div>
-          <div style={{ width: "100%" }}>
-            <ConversationScriptGraph
-              scriptData={SCRIPT_DATA}
-            />
-          </div>
-        </div>
+        <ConversationScript
+          scriptData={SCRIPT_DATA}
+          step={step}
+          setStep={setStep}
+          started={started}
+          setStarted={setStarted}
+          timeStarted={timeStarted}
+          setTimeStarted={setTimeStarted}
+          stepsHistory={stepsHistory}
+          setStepsHistory={setStepsHistory}
+        />
       </div>
-    );
-  }
-}
+      <div style={{ width: "100%" }}>
+        <ConversationScriptGraph
+          scriptData={SCRIPT_DATA}
+          step={step}
+          setStep={setStep}
+          started={started}
+          setStarted={setStarted}
+          timeStarted={timeStarted}
+          setTimeStarted={setTimeStarted}
+          stepsHistory={stepsHistory}
+          setStepsHistory={setStepsHistory}
+        />
+      </div>
+    </div>
+  </div>
+));
