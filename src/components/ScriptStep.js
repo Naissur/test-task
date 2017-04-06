@@ -17,7 +17,7 @@ const ScriptStep = compose(
       <div>
         Мы: {data.line}
         <br/>
-        - Конец -
+        <em style={{ color: 'grey' }}>- Конец -</em>
       </div>
     );
   }
@@ -33,7 +33,7 @@ const ScriptStep = compose(
 
     {Object.values(replies).map(reply => (
       <button
-        key={reply.id}
+        key={`${reply.id}-${reply.to}`}
         style={{ display: 'block' }}
         onClick={() => onReplyClicked(stepId, reply.id)}
       >

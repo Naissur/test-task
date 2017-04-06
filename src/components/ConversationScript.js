@@ -65,7 +65,7 @@ const ConversationScript = compose(
 
         {stepsHistory.map(
           ({ stepId, replyId }) => (
-            <div key={stepId}>
+            <div key={`${stepId}-${replyId}`}>
               Мы: {scriptData[stepId].line}
               <br />
               Клиент: {scriptData[stepId].replies[replyId].line}

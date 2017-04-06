@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { pure, compose, setPropTypes, withState, withHandlers } from 'recompose';
 
-import { keys, dissoc } from 'ramda';
+import { keys, dissoc, prop, contains, values, path } from 'ramda';
 
 const getScriptGraphStep = ({ scriptData, stepId }) => {
   const caption = scriptData[stepId].line;
@@ -47,13 +47,19 @@ const ConversationScriptGraph = compose(
         }
       });
 
-      // map event handlers
+      const replyNodesIds = values(path([step, 'replies'], scriptData)).map(prop('to'));
 
+      // add nodes event handlers
       allNodes.forEach(node => {
         const rect =  node.querySelector('rect');
 
+
         if (node.id === step) {
           rect.style.fill = '#cff78c';
+          rect.style.stroke = '#52672f';
+        } else if (contains(node.id, replyNodesIds)) {
+          rect.style.fill = '#c0c0f7';
+          rect.style.stroke = '#b4b4f1';
         } else {
           rect.style.fill = '#ECECFF';
         }
