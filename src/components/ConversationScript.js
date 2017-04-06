@@ -12,7 +12,7 @@ const ConversationScript = compose(
   }),
   withState('started', 'setStarted', false),
   withState('timeStarted', 'setTimeStarted', 0),
-  withState('step', 'setStep', '0'), // TODO GENERALIZE
+  withState('step', 'setStep', ({scriptData}) => scriptData.firstStep || '0'),
   withState('stepsHistory', 'setStepsHistory', []),
   withHandlers({
     setStarted: ({ setStarted, setTimeStarted }) => val => {
