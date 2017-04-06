@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { pure, withState, compose } from 'recompose';
+import { pure, withState, compose, withHandlers } from 'recompose';
 
 import ConversationScript from './components/ConversationScript';
 import ConversationScriptGraph from './components/ConversationScriptGraph';
@@ -10,7 +10,7 @@ const SCRIPT_DATA = {
     line: 'Добрый день!',
     replies: {
       'A': { id: 'A', line: 'Привет', to: 'B'},
-      'B': { id: 'B', line: 'Пока', to: 'B' }
+      'B': { id: 'B', line: 'Пока', to: 'C' }
     }
   },
   'B': {
@@ -36,14 +36,22 @@ export default compose(
   withState('timeStarted', 'setTimeStarted', 0),
   withState('step', 'setStep', SCRIPT_DATA.firstStep),
   withState('stepsHistory', 'setStepsHistory', []),
+  withHandlers({
+    navigateToStep: ({ setStep, setStepsHistory }) => stepId => {
+      setStep(stepId);
+      setStepsHistory([]);
+    },
+  }),
   pure,
 )(({
   started, setStarted,
   timeStarted, setTimeStarted,
   step, setStep,
   stepsHistory,
-  setStepsHistory
+  setStepsHistory,
+  navigateToStep
 }) => (
+  console.log(step, stepsHistory),
   <div>
     <h3>RBR Демо-скрипт </h3>
     <div style={{ display: 'flex' }}>
@@ -65,6 +73,7 @@ export default compose(
           scriptData={SCRIPT_DATA}
           step={step}
           setStep={setStep}
+          navigateToStep={navigateToStep}
           started={started}
           setStarted={setStarted}
           timeStarted={timeStarted}

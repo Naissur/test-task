@@ -28,7 +28,7 @@ const ConversationScriptGraph = compose(
   }),
   withState('html', 'setHTML', `<div style="color: grey">-not rendered yet-</div>`),
   withHandlers({
-    renderHTML: ({ scriptData, setHTML, html }) => () => {
+    renderHTML: ({ scriptData, setHTML, html, step }) => ({ navigateToStep }) => {
       // remove prev event listeners
       const allNodes = document.querySelectorAll('.mermaid .node');
       allNodes.forEach(node => { node.onclick = () => {}; })
@@ -50,18 +50,26 @@ const ConversationScriptGraph = compose(
       // map event handlers
 
       allNodes.forEach(node => {
+        const rect =  node.querySelector('rect');
+
+        if (node.id === step) {
+          rect.style.fill = '#cff78c';
+        } else {
+          rect.style.fill = '#ECECFF';
+        }
+
         node.style.cursor = 'pointer';
         node.onclick = () => {
-          console.log('yay!', node);
+          navigateToStep(node.id)
         };
       })
 
     }
   }),
   pure
-)(({ scriptData, setHTML, html, renderHTML }) => {
+)(({ scriptData, setHTML, html, renderHTML, navigateToStep, step }) => {
   setTimeout(() => {
-    renderHTML();
+    renderHTML({navigateToStep, step});
   }, 0);
 
   return (
