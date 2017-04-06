@@ -29,6 +29,10 @@ const ConversationScriptGraph = compose(
   withState('html', 'setHTML', `<div style="color: grey">-not rendered yet-</div>`),
   withHandlers({
     renderHTML: ({ scriptData, setHTML, html }) => () => {
+      if (document.querySelector('.node#A')) {
+        document.querySelector('.node#A').onclick = () => {};
+      }
+
       const stepsKeys = keys(dissoc('firstStep', scriptData));
 
       const graphDef = `
@@ -41,6 +45,15 @@ const ConversationScriptGraph = compose(
           setHTML(resHTML);
         }
       });
+
+      // map event handlers
+
+      if (document.querySelector('.node#A')) {
+        document.querySelector('.node#A').style.cursor = 'pointer';
+        document.querySelector('.node#A').onclick = () => {
+          console.log('yay, bitch!');
+        };
+      }
 
     }
   }),
