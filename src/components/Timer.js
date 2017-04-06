@@ -25,7 +25,7 @@ const Timer = compose(
 
   return (
     <div>
-      Время: {secondsPassed} seconds
+      Прошло: {secondsPassed} сек.
     </div>
   );
 });
