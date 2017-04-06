@@ -34,8 +34,6 @@ const ConversationScript = compose(
 
       setStep(prevStep);
       setStepsHistory(dropLast(1, stepsHistory));
-
-      // console.log({prevStep, stepsHistory, last: dropLast(1, stepsHistory) });
     },
     stepToBeginning: ({ setStep, stepsHistory, setStepsHistory, scriptData }) => () => {
       if (stepsHistory.length === 0) {

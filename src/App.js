@@ -51,7 +51,6 @@ export default compose(
   setStepsHistory,
   navigateToStep
 }) => (
-  console.log(step, stepsHistory),
   <div>
     <h3>RBR Демо-скрипт </h3>
     <div style={{ display: 'flex' }}>
